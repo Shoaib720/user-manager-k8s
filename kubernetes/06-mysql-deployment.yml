@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+  namespace: practise-ns-01
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.0
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: user-mgmt-secrets
+                  key: DB_PASSWORD
+          ports:
+            - containerPort: 3306
+              name: mysql
+          resources:
+            limits:
+              memory: 1024Mi
+              cpu: "0.5"
+          volumeMounts:
+            - name: mysql-persistent-storage
+              mountPath: /var/lib/mysql
+            - name: user-management-config-map
+              mountPath: /docker-entrypoint-initdb.d
+      volumes:
+        - name: mysql-persistent-storage
+          persistentVolumeClaim:
+              claimName: azure-managed-disk-pvc
+        - name: user-management-config-map
+          configMap:
+            name: user-management-config-map

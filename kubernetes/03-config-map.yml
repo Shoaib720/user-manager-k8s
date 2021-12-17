@@ -6,6 +6,3 @@ metadata:
 data:
   mysql_usermgmt.sql: |-
     CREATE DATABASE IF NOT EXISTS webappdb;
-    CREATE USER admin@'%' IDENTIFIED WITH mysql_native_password BY 'admin123';
-    GRANT ALL ON webappdb.* TO admin@'%';
-    FLUSH PRIVILEGES;

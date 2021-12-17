@@ -1,0 +1,1 @@
+[![Build Status](https://dev.azure.com/shoaibshaikh5881/user-management-system/_apis/build/status/user-management-system-Docker%20container-CI?branchName=main)](https://dev.azure.com/shoaibshaikh5881/user-management-system/_build/latest?definitionId=2&branchName=main)
